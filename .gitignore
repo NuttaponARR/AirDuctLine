@@ -12,6 +12,8 @@ exports/
 
 # Local test/work files
 test test.xlsx
+.env.line
+ops/cloudflared.exe
 
 # OS/editor noise
 .DS_Store

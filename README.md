@@ -65,6 +65,13 @@ When a real LIFF app is ready, start the server with:
 $env:LIFF_ID="your-liff-id"; .\ops\start-office-mes.ps1
 ```
 
+For the full real-LINE setup checklist, including HTTPS tunnel and LIFF app
+settings, see:
+
+```text
+ops/README-LINE-LIFF.md
+```
+
 ## Backup
 
 Back up runtime data and uploads with:

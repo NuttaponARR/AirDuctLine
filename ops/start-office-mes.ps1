@@ -56,5 +56,11 @@ $statusCode = (Invoke-WebRequest -Uri $healthUrl -UseBasicParsing).StatusCode
 
 Write-Host "Office MES started. PID: $($process.Id)"
 Write-Host "Local URL: http://localhost:$port/"
+if ($env:LIFF_ID) {
+  Write-Host "LIFF ID: $env:LIFF_ID"
+}
+if ($env:LINE_APP_URL) {
+  Write-Host "LINE LIFF URL: $($env:LINE_APP_URL.TrimEnd('/'))/line.html"
+}
 Write-Host "LAN URL: use this server IP, for example http://<server-ip>:$port/"
 Write-Host "Health: $healthUrl -> $statusCode"
