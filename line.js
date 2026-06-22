@@ -66,11 +66,18 @@ function setSession(nextSession) {
     window.localStorage.removeItem(sessionStorageKey);
   }
   renderSession();
+  renderCreateAccess();
 }
 
 function renderSession() {
   document.getElementById("sessionName").textContent = session.user ? `${session.user.name} - ${roleLabel(session.user.role)}` : "ยังไม่ได้เข้าสู่ระบบ";
   document.getElementById("sessionSource").textContent = session.source === "line" ? "LINE" : session.source === "browser" ? "Browser" : "Pilot";
+}
+
+function renderCreateAccess() {
+  const panel = document.getElementById("createJobPanel");
+  if (!panel) return;
+  panel.hidden = session.user?.role !== "sales";
 }
 
 function roleLabel(role) {
@@ -360,10 +367,57 @@ async function sendLineReply(form) {
   toast("ส่งข้อความตอบกลับแล้ว");
 }
 
+async function createJobFromLine(form) {
+  if (session.user?.role !== "sales") {
+    toast("สร้างงานใหม่ได้เฉพาะฝ่ายขาย");
+    return;
+  }
+  const raw = new FormData(form);
+  const itemName = String(raw.get("itemName") || "").trim();
+  const quantity = Number(raw.get("quantity") || 0);
+  if (!itemName || quantity <= 0) {
+    toast("กรุณาใส่รายการสินค้าและจำนวน");
+    return;
+  }
+
+  const payload = new FormData();
+  payload.set("customer", String(raw.get("customer") || "").trim());
+  payload.set("customerRef", String(raw.get("customerRef") || "").trim());
+  payload.set("salesOwner", session.user.name);
+  payload.set("jobType", String(raw.get("jobType") || "design"));
+  payload.set("dueDate", String(raw.get("dueDate") || ""));
+  payload.set("deliveryMode", String(raw.get("deliveryMode") || "บริษัทจัดส่ง"));
+  payload.set("note", String(raw.get("note") || "").trim());
+  payload.set("lineItems", JSON.stringify([{ name: itemName, quantity }]));
+  payload.set("item", itemName);
+  payload.set("quantity", String(quantity));
+
+  state = await api("/api/jobs", {
+    method: "POST",
+    body: payload,
+  });
+  form.reset();
+  const quantityInput = form.querySelector('input[name="quantity"]');
+  if (quantityInput) quantityInput.value = "1";
+  currentFilter = "mine";
+  document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item.dataset.filter === "mine"));
+  renderTasks();
+  toast(`สร้างงาน ${state.jobs[0]?.id || "ใหม่"} แล้ว`);
+}
+
 document.getElementById("browserLoginForm").addEventListener("submit", async (event) => {
   event.preventDefault();
   try {
     await browserLogin(new FormData(event.currentTarget).get("userId"));
+  } catch (error) {
+    toast(error.message);
+  }
+});
+
+document.getElementById("createJobForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  try {
+    await createJobFromLine(event.currentTarget);
   } catch (error) {
     toast(error.message);
   }
@@ -411,6 +465,7 @@ document.getElementById("taskList").addEventListener("submit", async (event) => 
 
 async function init() {
   renderSession();
+  renderCreateAccess();
   try {
     const lineIdentity = await detectLineIdentity();
     if (lineIdentity) {

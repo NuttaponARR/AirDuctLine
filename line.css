@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -122,6 +126,13 @@ h2 {
 .panel.warning {
   border-color: #fed7aa;
   background: #fff7ed;
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .stack-form {
@@ -247,6 +258,12 @@ button:disabled {
   grid-template-columns: 1fr 1fr;
 }
 
+.create-mini-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(96px, 0.6fr);
+  gap: 10px;
+}
+
 .close-grid textarea,
 .close-grid button {
   grid-column: 1 / -1;
@@ -278,5 +295,11 @@ button:disabled {
 @media (min-width: 560px) {
   .task-actions {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
+  .create-mini-grid {
+    grid-template-columns: 1fr;
   }
 }

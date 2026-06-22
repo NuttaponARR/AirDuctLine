@@ -43,6 +43,62 @@
         <p id="lineLinkText"></p>
       </section>
 
+      <section class="panel" id="createJobPanel" hidden>
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">Sales</span>
+            <h2>สร้างงานใหม่</h2>
+          </div>
+          <span class="pill">INQ</span>
+        </div>
+        <form class="stack-form" id="createJobForm">
+          <label>
+            ลูกค้า
+            <input name="customer" placeholder="ชื่อลูกค้า / บริษัท" required />
+          </label>
+          <label>
+            PO/RFQ/ข้อความ LINE
+            <input name="customerRef" placeholder="เลขอ้างอิงหรือข้อความจากลูกค้า" />
+          </label>
+          <div class="create-mini-grid">
+            <label>
+              รายการสินค้า
+              <input name="itemName" placeholder="ชื่อสินค้า" required />
+            </label>
+            <label>
+              จำนวน
+              <input name="quantity" inputmode="numeric" type="number" min="1" value="1" required />
+            </label>
+          </div>
+          <label>
+            ประเภทงาน
+            <select name="jobType">
+              <option value="design">ต้องถอดแบบ/ประเมินต้นทุน</option>
+              <option value="stock">เช็คสต็อกก่อน</option>
+              <option value="simple">งานง่าย ฝ่ายขายทำราคาเอง</option>
+            </select>
+          </label>
+          <div class="create-mini-grid">
+            <label>
+              กำหนดส่ง
+              <input name="dueDate" type="date" required />
+            </label>
+            <label>
+              การจัดส่ง
+              <select name="deliveryMode">
+                <option value="บริษัทจัดส่ง">บริษัทจัดส่ง</option>
+                <option value="ลูกค้ารับเอง">ลูกค้ารับเอง</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            หมายเหตุ
+            <textarea name="note" placeholder="รายละเอียดเพิ่มเติม เช่น สเปก สี ขนาด หรือเวลาที่ลูกค้าต้องการ"></textarea>
+          </label>
+          <button class="primary-button" type="submit">บันทึกงานใหม่</button>
+        </form>
+      </section>
+
       <nav class="tabs" aria-label="งาน">
         <button class="tab active" data-filter="mine" type="button">งานของฉัน</button>
         <button class="tab" data-filter="urgent" type="button">ใกล้ส่ง</button>
