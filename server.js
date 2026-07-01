@@ -13,8 +13,6 @@ const uploadDir = path.join(root, "uploads");
 const dbFile = path.join(dataDir, "state.json");
 const liffId = process.env.LIFF_ID || "";
 const lineAppUrl = process.env.LINE_APP_URL || "";
-const lineChannelSecret = process.env.LINE_CHANNEL_SECRET || "";
-const lineChannelAccessToken = process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
 
 const today = new Date("2026-06-02T09:00:00+07:00");
 
@@ -213,6 +211,7 @@ function normalizeState(state) {
   state.sessions = Array.isArray(state.sessions) ? state.sessions : [];
   state.activityLog = Array.isArray(state.activityLog) ? state.activityLog : [];
   state.notifications = Array.isArray(state.notifications) ? state.notifications : [];
+  state.lineEvents = Array.isArray(state.lineEvents) ? state.lineEvents : [];
   state.jobs = Array.isArray(state.jobs) ? state.jobs : [];
   state.counters = state.counters || {};
   state.jobs.forEach((job) => {
@@ -668,6 +667,102 @@ function pushLine(state, message) {
   state.notifications.push(`LINE -> ${message}`);
 }
 
+function verifyLineSignature(rawBody, signature) {
+  if (!lineChannelSecret) return false;
+  if (!signature) return false;
+  const expected = crypto.createHmac("sha256", lineChannelSecret).update(rawBody).digest("base64");
+  const expectedBuffer = Buffer.from(expected);
+  const actualBuffer = Buffer.from(signature);
+  return expectedBuffer.length === actualBuffer.length && crypto.timingSafeEqual(expectedBuffer, actualBuffer);
+}
+
+function lineMessageSummary(event) {
+  const message = event.message || {};
+  if (message.type === "text") return message.text || "";
+  if (message.type === "file") return `ไฟล์: ${message.fileName || message.id || "-"}`;
+  if (message.type === "image") return `รูปภาพ: ${message.id || "-"}`;
+  if (message.type === "video") return `วิดีโอ: ${message.id || "-"}`;
+  if (message.type === "audio") return `ข้อความเสียง: ${message.id || "-"}${message.duration ? ` (${message.duration} ms)` : ""}`;
+  if (message.type === "sticker") return `สติกเกอร์: ${message.packageId || "-"} / ${message.stickerId || "-"}`;
+  if (message.type === "location") return `ตำแหน่ง: ${message.title || message.address || "-"}`;
+  if (event.type === "follow") return "เพิ่ม LINE Official เป็นเพื่อน";
+  if (event.type === "unfollow") return "บล็อกหรือเลิกติดตาม LINE Official";
+  if (event.type === "postback") return `postback: ${event.postback?.data || "-"}`;
+  return event.type || "LINE event";
+}
+
+function lineEventRecord(event, user) {
+  const message = event.message || {};
+  return {
+    id: crypto.randomUUID(),
+    at: new Date().toISOString(),
+    eventId: event.webhookEventId || "",
+    type: event.type || "",
+    mode: event.mode || "",
+    sourceType: event.source?.type || "",
+    lineUserId: event.source?.userId || "",
+    lineGroupId: event.source?.groupId || "",
+    lineRoomId: event.source?.roomId || "",
+    userId: user?.id || "",
+    userName: user?.name || "",
+    role: user?.role || "",
+    messageType: message.type || "",
+    messageId: message.id || "",
+    text: message.type === "text" ? message.text || "" : "",
+    fileName: message.fileName || "",
+    duration: message.duration || 0,
+    summary: lineMessageSummary(event),
+  };
+}
+
+async function lineWebhookHealth(req, res) {
+  return json(res, 200, {
+    ok: true,
+    endpoint: "/api/line/webhook",
+    signatureRequired: Boolean(lineChannelSecret),
+    accessTokenConfigured: Boolean(lineChannelAccessToken),
+  });
+}
+
+async function lineWebhook(req, res) {
+  if (!lineChannelSecret) {
+    return error(res, 503, "LINE_CHANNEL_SECRET is not configured");
+  }
+
+  const rawBody = await collectBody(req, 2 * 1024 * 1024);
+  const signature = req.headers["x-line-signature"] || "";
+  if (!verifyLineSignature(rawBody, signature)) {
+    return error(res, 401, "Invalid LINE signature");
+  }
+
+  let payload;
+  try {
+    payload = rawBody.length ? JSON.parse(rawBody.toString("utf8")) : {};
+  } catch {
+    return error(res, 400, "Invalid LINE webhook JSON");
+  }
+
+  const events = Array.isArray(payload.events) ? payload.events : [];
+  const state = await readState();
+  const savedEvents = [];
+
+  events.forEach((event) => {
+    const lineUserId = event.source?.userId || "";
+    const user = lineUserId ? state.users.find((item) => item.active !== false && item.lineUserId === lineUserId) : null;
+    const saved = lineEventRecord(event, user);
+    state.lineEvents.unshift(saved);
+    savedEvents.push(saved);
+    recordActivity(state, user, "line_webhook", null, saved.summary);
+    const sender = user?.name || lineUserId || event.source?.type || "LINE user";
+    pushLine(state, `รับข้อความจาก ${sender}: ${saved.summary}`);
+  });
+
+  state.lineEvents = state.lineEvents.slice(0, 500);
+  state.notifications = state.notifications.slice(-500);
+  await writeState(state);
+  json(res, 200, { ok: true, received: savedEvents.length });
+}
+
 async function createJob(req, res) {
   const body = await collectBody(req);
   const { fields, files } = parseMultipart(body, req.headers["content-type"] || "");
@@ -955,6 +1050,8 @@ async function handleApi(req, res, pathname) {
       webhookReady: Boolean(lineChannelSecret && lineChannelAccessToken),
     });
   }
+  if (req.method === "GET" && pathname === "/api/line/webhook/health") return lineWebhookHealth(req, res);
+  if (req.method === "POST" && pathname === "/api/line/webhook") return lineWebhook(req, res);
   if (req.method === "POST" && pathname === "/api/login") return login(req, res);
   if (req.method === "POST" && pathname === "/api/line/session") return lineSession(req, res);
   if (req.method === "POST" && pathname === "/api/line/webhook") return lineWebhook(req, res);

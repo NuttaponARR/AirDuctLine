@@ -65,6 +65,8 @@ Edit `.env.line`:
 ```text
 LIFF_ID=your-liff-id
 LINE_APP_URL=https://example.trycloudflare.com
+LINE_CHANNEL_SECRET=your-messaging-api-channel-secret
+LINE_CHANNEL_ACCESS_TOKEN=your-messaging-api-channel-access-token
 PORT=8765
 HOST=0.0.0.0
 ```
@@ -138,5 +140,14 @@ are set) so the Admin UI can surface webhook status if needed.
 ## Notes
 
 - Real LINE LIFF login uses `/api/line/session`.
+- Real LINE webhook events use `/api/line/webhook`.
+- The LINE Official Account webhook URL should be:
+
+```text
+https://example.trycloudflare.com/api/line/webhook
+```
+
+- Before saving the webhook URL in LINE Official Account Manager, make sure
+  `LINE_CHANNEL_SECRET` is configured and restart the MES server.
 - Browser fallback remains available for local testing.
 - Runtime data and `.env.line` are intentionally not committed to Git.
