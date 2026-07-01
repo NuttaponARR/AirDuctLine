@@ -15,6 +15,7 @@ const liffId = process.env.LIFF_ID || "";
 const lineAppUrl = process.env.LINE_APP_URL || "";
 const lineChannelSecret = process.env.LINE_CHANNEL_SECRET || process.env.CHANNEL_SECRET || "";
 const lineChannelAccessToken = process.env.LINE_CHANNEL_ACCESS_TOKEN || process.env.CHANNEL_ACCESS_TOKEN || "";
+const liffIdPlaceholders = new Set(["PUT_YOUR_LIFF_ID_HERE", "your-liff-id"]);
 
 const today = new Date("2026-06-02T09:00:00+07:00");
 
