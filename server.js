@@ -316,15 +316,6 @@ async function linkLineUser(req, res, id) {
   json(res, 200, { user });
 }
 
-function verifyLineSignature(rawBody, signature) {
-  if (!lineChannelSecret || !signature) return false;
-  const expected = crypto.createHmac("sha256", lineChannelSecret).update(rawBody).digest("base64");
-  const expectedBuf = Buffer.from(expected, "utf8");
-  const signatureBuf = Buffer.from(String(signature), "utf8");
-  if (expectedBuf.length !== signatureBuf.length) return false;
-  return crypto.timingSafeEqual(expectedBuf, signatureBuf);
-}
-
 function callLineApi(apiPath, payload) {
   return new Promise((resolve, reject) => {
     const body = Buffer.from(JSON.stringify(payload));
@@ -362,16 +353,14 @@ function replyLineMessage(replyToken, messages) {
   });
 }
 
-async function handleLineEvent(state, event) {
+async function handleLineEvent(state, event, user) {
   const lineUserId = event.source?.userId || "";
-  const user = lineUserId ? state.users.find((item) => item.lineUserId === lineUserId) : null;
 
   if (event.type === "follow") {
     const text = user
       ? `สวัสดีคุณ ${user.name} เชื่อมต่อ LINE กับระบบ Office MES เรียบร้อยแล้วครับ`
       : `สวัสดีครับ ระบบยังไม่พบบัญชีของคุณ กรุณาแจ้ง Admin เพื่อผูก LINE user id นี้:\n${lineUserId}`;
     await replyLineMessage(event.replyToken, [{ type: "text", text }]);
-    recordActivity(state, user, "line_follow", null, `LINE follow: ${lineUserId}`);
     return;
   }
 
@@ -380,36 +369,7 @@ async function handleLineEvent(state, event) {
       ? "รับข้อความแล้วครับ กรุณาเปิดแอป Office MES ผ่านเมนู LINE เพื่อดำเนินการต่อ"
       : `บัญชี LINE นี้ยังไม่ได้ผูกกับผู้ใช้ในระบบ กรุณาแจ้ง Admin พร้อม LINE user id นี้:\n${lineUserId}`;
     await replyLineMessage(event.replyToken, [{ type: "text", text }]);
-    recordActivity(state, user, "line_message", null, `${lineUserId}: ${event.message.text}`);
   }
-}
-
-async function lineWebhook(req, res) {
-  const rawBody = await collectBody(req, 2 * 1024 * 1024);
-  const signature = req.headers["x-line-signature"];
-  if (!verifyLineSignature(rawBody, signature)) {
-    return error(res, 401, "Invalid LINE signature");
-  }
-  json(res, 200, { ok: true });
-
-  let payload;
-  try {
-    payload = JSON.parse(rawBody.length ? rawBody.toString("utf8") : "{}");
-  } catch {
-    return;
-  }
-  const events = Array.isArray(payload.events) ? payload.events : [];
-  if (!events.length) return;
-
-  const state = await readState();
-  for (const event of events) {
-    try {
-      await handleLineEvent(state, event);
-    } catch (err) {
-      console.error("LINE event handling failed:", err);
-    }
-  }
-  await writeState(state);
 }
 
 async function getSession(req, res) {
@@ -809,7 +769,7 @@ async function lineWebhook(req, res) {
   const state = await readState();
   const savedEvents = [];
 
-  events.forEach((event) => {
+  for (const event of events) {
     const lineUserId = event.source?.userId || "";
     const user = lineUserId ? state.users.find((item) => item.active !== false && item.lineUserId === lineUserId) : null;
     const saved = lineEventRecord(event, user);
@@ -818,7 +778,12 @@ async function lineWebhook(req, res) {
     recordActivity(state, user, "line_webhook", null, saved.summary);
     const sender = user?.name || lineUserId || event.source?.type || "LINE user";
     pushLine(state, `รับข้อความจาก ${sender}: ${saved.summary}`);
-  });
+    try {
+      await handleLineEvent(state, event, user);
+    } catch (err) {
+      console.error("LINE event handling failed:", err);
+    }
+  }
 
   state.lineEvents = state.lineEvents.slice(0, 500);
   state.notifications = state.notifications.slice(-500);
@@ -1128,7 +1093,6 @@ async function handleApi(req, res, pathname) {
   if (req.method === "POST" && pathname === "/api/line/webhook") return lineWebhook(req, res);
   if (req.method === "POST" && pathname === "/api/login") return login(req, res);
   if (req.method === "POST" && pathname === "/api/line/session") return lineSession(req, res);
-  if (req.method === "POST" && pathname === "/api/line/webhook") return lineWebhook(req, res);
   if (req.method === "GET" && pathname === "/api/session") return getSession(req, res);
   if (req.method === "POST" && pathname === "/api/logout") return logout(req, res);
   if (req.method === "POST" && pathname === "/api/users") return createUser(req, res);
