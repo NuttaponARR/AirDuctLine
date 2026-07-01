@@ -1,4 +1,5 @@
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const fsp = require("fs/promises");
 const path = require("path");
@@ -12,6 +13,8 @@ const uploadDir = path.join(root, "uploads");
 const dbFile = path.join(dataDir, "state.json");
 const liffId = process.env.LIFF_ID || "";
 const lineAppUrl = process.env.LINE_APP_URL || "";
+const lineChannelSecret = process.env.LINE_CHANNEL_SECRET || "";
+const lineChannelAccessToken = process.env.LINE_CHANNEL_ACCESS_TOKEN || "";
 
 const today = new Date("2026-06-02T09:00:00+07:00");
 
@@ -303,6 +306,102 @@ async function linkLineUser(req, res, id) {
   recordActivity(state, admin, "link_line_user", null, `${user.name} -> ${normalizedLineUserId || "clear"}`);
   await writeState(state);
   json(res, 200, { user });
+}
+
+function verifyLineSignature(rawBody, signature) {
+  if (!lineChannelSecret || !signature) return false;
+  const expected = crypto.createHmac("sha256", lineChannelSecret).update(rawBody).digest("base64");
+  const expectedBuf = Buffer.from(expected, "utf8");
+  const signatureBuf = Buffer.from(String(signature), "utf8");
+  if (expectedBuf.length !== signatureBuf.length) return false;
+  return crypto.timingSafeEqual(expectedBuf, signatureBuf);
+}
+
+function callLineApi(apiPath, payload) {
+  return new Promise((resolve, reject) => {
+    const body = Buffer.from(JSON.stringify(payload));
+    const request = https.request(
+      {
+        hostname: "api.line.me",
+        path: apiPath,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${lineChannelAccessToken}`,
+          "Content-Length": body.length,
+        },
+      },
+      (res) => {
+        const chunks = [];
+        res.on("data", (chunk) => chunks.push(chunk));
+        res.on("end", () => {
+          const text = Buffer.concat(chunks).toString("utf8");
+          if (res.statusCode >= 200 && res.statusCode < 300) resolve(text);
+          else reject(new Error(`LINE API ${apiPath} failed: ${res.statusCode} ${text}`));
+        });
+      }
+    );
+    request.on("error", reject);
+    request.write(body);
+    request.end();
+  });
+}
+
+function replyLineMessage(replyToken, messages) {
+  if (!lineChannelAccessToken || !replyToken) return Promise.resolve();
+  return callLineApi("/v2/bot/message/reply", { replyToken, messages }).catch((err) => {
+    console.error("LINE reply failed:", err.message);
+  });
+}
+
+async function handleLineEvent(state, event) {
+  const lineUserId = event.source?.userId || "";
+  const user = lineUserId ? state.users.find((item) => item.lineUserId === lineUserId) : null;
+
+  if (event.type === "follow") {
+    const text = user
+      ? `สวัสดีคุณ ${user.name} เชื่อมต่อ LINE กับระบบ Office MES เรียบร้อยแล้วครับ`
+      : `สวัสดีครับ ระบบยังไม่พบบัญชีของคุณ กรุณาแจ้ง Admin เพื่อผูก LINE user id นี้:\n${lineUserId}`;
+    await replyLineMessage(event.replyToken, [{ type: "text", text }]);
+    recordActivity(state, user, "line_follow", null, `LINE follow: ${lineUserId}`);
+    return;
+  }
+
+  if (event.type === "message" && event.message?.type === "text") {
+    const text = user
+      ? "รับข้อความแล้วครับ กรุณาเปิดแอป Office MES ผ่านเมนู LINE เพื่อดำเนินการต่อ"
+      : `บัญชี LINE นี้ยังไม่ได้ผูกกับผู้ใช้ในระบบ กรุณาแจ้ง Admin พร้อม LINE user id นี้:\n${lineUserId}`;
+    await replyLineMessage(event.replyToken, [{ type: "text", text }]);
+    recordActivity(state, user, "line_message", null, `${lineUserId}: ${event.message.text}`);
+  }
+}
+
+async function lineWebhook(req, res) {
+  const rawBody = await collectBody(req, 2 * 1024 * 1024);
+  const signature = req.headers["x-line-signature"];
+  if (!verifyLineSignature(rawBody, signature)) {
+    return error(res, 401, "Invalid LINE signature");
+  }
+  json(res, 200, { ok: true });
+
+  let payload;
+  try {
+    payload = JSON.parse(rawBody.length ? rawBody.toString("utf8") : "{}");
+  } catch {
+    return;
+  }
+  const events = Array.isArray(payload.events) ? payload.events : [];
+  if (!events.length) return;
+
+  const state = await readState();
+  for (const event of events) {
+    try {
+      await handleLineEvent(state, event);
+    } catch (err) {
+      console.error("LINE event handling failed:", err);
+    }
+  }
+  await writeState(state);
 }
 
 async function getSession(req, res) {
@@ -852,10 +951,13 @@ async function handleApi(req, res, pathname) {
       liffId,
       appUrl: lineAppUrl,
       pilotUrl: lineAppUrl ? `${lineAppUrl.replace(/\/$/, "")}/line.html` : "/line.html",
+      webhookUrl: lineAppUrl ? `${lineAppUrl.replace(/\/$/, "")}/api/line/webhook` : "/api/line/webhook",
+      webhookReady: Boolean(lineChannelSecret && lineChannelAccessToken),
     });
   }
   if (req.method === "POST" && pathname === "/api/login") return login(req, res);
   if (req.method === "POST" && pathname === "/api/line/session") return lineSession(req, res);
+  if (req.method === "POST" && pathname === "/api/line/webhook") return lineWebhook(req, res);
   if (req.method === "GET" && pathname === "/api/session") return getSession(req, res);
   if (req.method === "POST" && pathname === "/api/logout") return logout(req, res);
   if (req.method === "POST" && pathname === "/api/users") return createUser(req, res);
