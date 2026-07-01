@@ -1,0 +1,19 @@
+# Runtime data
+data/state.json
+uploads/*
+!uploads/.gitkeep
+logs/*
+!logs/.gitkeep
+
+# Generated files and backups
+backups/
+exports/
+*.zip
+
+ops/cloudflared.exe
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.tmp
+*.log

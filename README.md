@@ -7,7 +7,6 @@ planning, logistics, and admin handoffs.
 
 - `server.js` - Node.js backend and static file server
 - `index.html`, `app.js`, `styles.css` - main Office MES web app
-- `line-mes-starter.*` - LINE/LIFF-oriented workflow prototype
 - `line-mobile-preview.*` - mobile preview prototype
 - `ops/` - Windows PowerShell helper scripts for running, stopping, backing up,
   and checking the local service
