@@ -1,0 +1,897 @@
+{
+  "counters": {
+    "INQ20260602": 2,
+    "SO20260602": 1,
+    "WO20260602": 1
+  },
+  "users": [
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-pamon",
+      "name": "คุณ ภมร",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-monthian",
+      "name": "คุณ มณเทียร",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-saknarong",
+      "name": "คุณ ศักดิ์ณรงค์",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-pakin",
+      "name": "คุณ ภาคิน",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-lakkana",
+      "name": "คุณ ลัคนา",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-wanida",
+      "name": "คุณ วนิดา",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-sathinee",
+      "name": "คุณ สาธินี",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-wachirawan",
+      "name": "คุณ วชิราวรรณ",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-supansa",
+      "name": "คุณ สุพรรษา",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-chokepisit",
+      "name": "คุณ โชคพิสิฐ",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "sales-thana",
+      "name": "คุณ ธนา",
+      "role": "sales",
+      "department": "ฝ่ายขาย"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "prod-pae",
+      "name": "คุณ แป๊ะ",
+      "role": "production",
+      "department": "ถอดแบบ/ผลิต"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "prod-rong",
+      "name": "คุณ โรง",
+      "role": "production",
+      "department": "ถอดแบบ/ผลิต"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "prod-premsuk",
+      "name": "คุณ เปรมสุข",
+      "role": "production",
+      "department": "ถอดแบบ/ผลิต"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "plan-pad",
+      "name": "คุณ แพ็ด",
+      "role": "planning",
+      "department": "วางแผน"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "wh-pon",
+      "name": "คุณ พล",
+      "role": "warehouse",
+      "department": "คลัง"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "log-renu",
+      "name": "คุณ เรณู",
+      "role": "logistics",
+      "department": "ขนส่ง"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "admin",
+      "name": "Admin",
+      "role": "admin",
+      "department": "Admin"
+    },
+    {
+      "lineUserId": "",
+      "active": true,
+      "id": "admin-thana",
+      "name": "คุณ ธนา",
+      "role": "admin",
+      "department": "Admin"
+    }
+  ],
+  "activityLog": [
+    {
+      "id": "6a3fc066-7fcc-4b50-b03f-b6b429d584d4",
+      "at": "2026-07-01T08:33:51.290Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_webhook",
+      "jobId": "",
+      "detail": "เทส"
+    },
+    {
+      "id": "093a23b4-ba41-4dee-a9cf-70705b234724",
+      "at": "2026-07-01T08:06:12.815Z",
+      "userId": "sales-pamon",
+      "userName": "คุณ ภมร",
+      "role": "sales",
+      "action": "login",
+      "jobId": "",
+      "detail": "browser login"
+    },
+    {
+      "id": "7f1343b0-917b-4dc4-b36e-3084ff88a95d",
+      "at": "2026-07-01T03:02:24.123Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "U8638fc7162b0bab2e7e96ad00749dc35: Hi"
+    },
+    {
+      "id": "2d5e7e55-8702-420c-8766-2687feaf307e",
+      "at": "2026-07-01T03:01:07.110Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "U8638fc7162b0bab2e7e96ad00749dc35: Hi"
+    },
+    {
+      "id": "21409b94-e97d-4597-a247-7dd55cc51095",
+      "at": "2026-07-01T02:54:47.697Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "U8638fc7162b0bab2e7e96ad00749dc35: Hi"
+    },
+    {
+      "id": "74f2d0e5-5c1e-4102-9c21-de16dab39ecd",
+      "at": "2026-07-01T02:40:40.668Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "U6b2cca55de9770d8b9f145fc6f11f5f4: ครับผม"
+    },
+    {
+      "id": "b024ad7d-f425-4759-8165-2e77156795dd",
+      "at": "2026-07-01T02:39:44.927Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "U6b2cca55de9770d8b9f145fc6f11f5f4: สวัสดี"
+    },
+    {
+      "id": "4a7af92f-f85f-4e24-b919-898e642a5338",
+      "at": "2026-07-01T02:20:25.429Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_follow",
+      "jobId": "",
+      "detail": "LINE follow: Ud67b84d8386dfd6332e08c70b7f8d649"
+    },
+    {
+      "id": "b076167d-0885-48e5-952e-68db7862323a",
+      "at": "2026-07-01T02:15:20.121Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "U7932f7c9d71bc4f714349a0998216df0: Testtest"
+    },
+    {
+      "id": "1a4fe901-7720-47c6-81ea-715329447e63",
+      "at": "2026-07-01T02:15:12.383Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_follow",
+      "jobId": "",
+      "detail": "LINE follow: U7932f7c9d71bc4f714349a0998216df0"
+    },
+    {
+      "id": "3187b325-3b78-41cf-9cf9-84b44a539174",
+      "at": "2026-07-01T02:12:07.379Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "U6b2cca55de9770d8b9f145fc6f11f5f4: ทดสอบ"
+    },
+    {
+      "id": "a6c0e6ce-ea6e-4cca-ae70-1e5f03adaa74",
+      "at": "2026-07-01T01:39:24.442Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_message",
+      "jobId": "",
+      "detail": "Utest123: hi"
+    },
+    {
+      "id": "8dada88a-a90c-433b-9276-21f3d6c583af",
+      "at": "2026-06-18T08:50:16.229Z",
+      "userId": "wh-pon",
+      "userName": "คุณ พล",
+      "role": "warehouse",
+      "action": "read_job",
+      "jobId": "INQ20260602002",
+      "detail": "เปิดอ่าน รอเช็คสต็อก"
+    },
+    {
+      "id": "dfb03942-5da0-4c00-84a8-9bcd4a39cdab",
+      "at": "2026-06-18T08:48:46.928Z",
+      "userId": "wh-pon",
+      "userName": "คุณ พล",
+      "role": "warehouse",
+      "action": "read_job",
+      "jobId": "INQ20260602002",
+      "detail": "เปิดอ่าน รอเช็คสต็อก"
+    },
+    {
+      "id": "bf0a4a6f-56e8-41ea-906b-a7897e7597b5",
+      "at": "2026-06-18T08:47:51.184Z",
+      "userId": "wh-pon",
+      "userName": "คุณ พล",
+      "role": "warehouse",
+      "action": "read_job",
+      "jobId": "INQ20260602002",
+      "detail": "เปิดอ่าน รอเช็คสต็อก"
+    },
+    {
+      "id": "dd55159d-654e-4068-9865-19fa0a258668",
+      "at": "2026-06-18T08:46:42.821Z",
+      "userId": "wh-pon",
+      "userName": "คุณ พล",
+      "role": "warehouse",
+      "action": "login",
+      "jobId": "",
+      "detail": "browser login"
+    },
+    {
+      "id": "ad5e8bd3-0894-4b66-a14b-45d8fca37c3f",
+      "at": "2026-06-18T08:46:34.928Z",
+      "userId": "prod-pae",
+      "userName": "คุณ แป๊ะ",
+      "role": "production",
+      "action": "logout",
+      "jobId": "",
+      "detail": "browser logout"
+    },
+    {
+      "id": "8e22c2de-09fd-4954-ae41-29a4e7cc0495",
+      "at": "2026-06-18T08:44:13.036Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "create_job",
+      "jobId": "INQ20260602002",
+      "detail": "สร้างงานใหม่ สถานะ รอเช็คสต็อก"
+    },
+    {
+      "id": "0bcaf610-d43c-437c-ad9e-b775c288250a",
+      "at": "2026-06-18T08:22:06.046Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "change_status",
+      "jobId": "INQ20260602001",
+      "detail": "ผลิตเสร็จ -> รอยืนยันจัดส่ง"
+    },
+    {
+      "id": "2dd996b1-baca-405c-8d17-7ccaee720dd6",
+      "at": "2026-06-18T08:21:31.477Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_job",
+      "jobId": "INQ20260602001",
+      "detail": "เปิดอ่าน DESIGN_REPLY"
+    },
+    {
+      "id": "6b9f9c4d-e063-45c2-9e77-cbe856ccb7fa",
+      "at": "2026-06-18T08:21:19.769Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_job",
+      "jobId": "INQ20260602001",
+      "detail": "เปิดอ่าน DESIGN_REPLY"
+    },
+    {
+      "id": "62f4d5e7-c958-4c0d-a436-901b10045323",
+      "at": "2026-06-18T08:20:26.013Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "login",
+      "jobId": "",
+      "detail": "browser login"
+    },
+    {
+      "id": "c42c8a9e-f53b-46c0-9060-c88f4d08b973",
+      "at": "2026-06-18T08:18:32.825Z",
+      "userId": "prod-pae",
+      "userName": "คุณ แป๊ะ",
+      "role": "production",
+      "action": "close_production",
+      "jobId": "INQ20260602001",
+      "detail": "ดี 100 เสีย 0"
+    },
+    {
+      "id": "5dcfb929-f12d-4a4f-8df0-1d656f1f4e41",
+      "at": "2026-06-18T08:18:16.202Z",
+      "userId": "prod-pae",
+      "userName": "คุณ แป๊ะ",
+      "role": "production",
+      "action": "login",
+      "jobId": "",
+      "detail": "browser login"
+    },
+    {
+      "id": "ebca2940-7d2e-43b1-9607-59b5c9435633",
+      "at": "2026-06-18T08:18:11.519Z",
+      "userId": "plan-pad",
+      "userName": "คุณ แพ็ด",
+      "role": "planning",
+      "action": "logout",
+      "jobId": "",
+      "detail": "browser logout"
+    },
+    {
+      "id": "b095ffeb-d1d0-42e4-a87d-6aa8be6f7e1c",
+      "at": "2026-06-18T08:17:52.596Z",
+      "userId": "plan-pad",
+      "userName": "คุณ แพ็ด",
+      "role": "planning",
+      "action": "login",
+      "jobId": "",
+      "detail": "browser login"
+    },
+    {
+      "id": "f4c9e1a6-fac0-4345-9cfe-74c225ba0140",
+      "at": "2026-06-18T08:17:50.716Z",
+      "userId": "plan-pad",
+      "userName": "คุณ แพ็ด",
+      "role": "planning",
+      "action": "logout",
+      "jobId": "",
+      "detail": "browser logout"
+    },
+    {
+      "id": "6d4bbce6-de69-4cbe-9a87-ac4ddba98da9",
+      "at": "2026-06-18T08:17:35.982Z",
+      "userId": "plan-pad",
+      "userName": "คุณ แพ็ด",
+      "role": "planning",
+      "action": "login",
+      "jobId": "",
+      "detail": "browser login"
+    },
+    {
+      "id": "1386d2d7-0f54-4699-a27b-235e1d3a46dc",
+      "at": "2026-06-18T08:03:56.449Z",
+      "userId": "sales-pamon",
+      "userName": "คุณ ภมร",
+      "role": "sales",
+      "action": "login",
+      "jobId": "",
+      "detail": "browser login"
+    },
+    {
+      "id": "f5f4ce43-c7c4-414d-8a84-0d90d03e7855",
+      "at": "2026-06-18T07:31:23.246Z",
+      "userId": "plan-pad",
+      "userName": "คุณ แพ็ด",
+      "role": "planning",
+      "action": "change_status",
+      "jobId": "INQ20260602001",
+      "detail": "รอวางแผนผลิต -> กำลังผลิต"
+    },
+    {
+      "id": "76f4028b-09d7-41fb-a708-608e7a015488",
+      "at": "2026-06-18T02:21:15.071Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "change_status",
+      "jobId": "INQ20260602001",
+      "detail": "รอฝ่ายขายออก SO -> รอวางแผนผลิต"
+    },
+    {
+      "id": "e08278c0-cf99-41d1-87b8-5460efcb5b40",
+      "at": "2026-06-18T02:20:57.560Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_job",
+      "jobId": "INQ20260602001",
+      "detail": "เปิดอ่าน DESIGN_REPLY"
+    },
+    {
+      "id": "343237b7-71aa-426a-87de-3c38e5885720",
+      "at": "2026-06-18T02:20:47.325Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_job",
+      "jobId": "INQ20260602001",
+      "detail": "เปิดอ่าน DESIGN_REPLY"
+    },
+    {
+      "id": "32564d82-26df-4535-a823-4ce83275699a",
+      "at": "2026-06-18T02:18:49.692Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_job",
+      "jobId": "INQ20260602001",
+      "detail": "เปิดอ่าน DESIGN_REPLY"
+    },
+    {
+      "id": "d6ca912a-cb81-48b6-bd4e-4c4eda13ed83",
+      "at": "2026-06-18T02:18:19.754Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_job",
+      "jobId": "INQ20260602001",
+      "detail": "เปิดอ่าน DESIGN_REPLY"
+    },
+    {
+      "id": "62574225-5608-41c0-9827-237eea2f0f42",
+      "at": "2026-06-18T02:17:26.370Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_job",
+      "jobId": "INQ20260602001",
+      "detail": "เปิดอ่าน DESIGN_REPLY"
+    },
+    {
+      "id": "f105406c-9327-45c0-8915-e8dd56b59e4e",
+      "at": "2026-06-18T02:17:00.986Z",
+      "userId": "prod-pae",
+      "userName": "คุณ แป๊ะ",
+      "role": "production",
+      "action": "design_reply",
+      "jobId": "INQ20260602001",
+      "detail": "ฝ่ายผลิตส่งผลถอดแบบกลับฝ่ายขาย"
+    },
+    {
+      "id": "742acfb3-81f9-47d7-bece-24bdc298503b",
+      "at": "2026-06-18T02:16:12.640Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_denied",
+      "jobId": "INQ20260602001",
+      "detail": "พยายามเปิดอ่าน รอถอดแบบ; ผู้ต้องอ่านคือ คุณ แป๊ะ"
+    },
+    {
+      "id": "79b2a12f-444b-4b27-9ee3-a28843bfe23a",
+      "at": "2026-06-18T02:16:08.964Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "read_denied",
+      "jobId": "INQ20260602001",
+      "detail": "พยายามเปิดอ่าน รอถอดแบบ; ผู้ต้องอ่านคือ คุณ แป๊ะ"
+    },
+    {
+      "id": "1d238667-aa6a-4c5b-8ede-3f854ace9b04",
+      "at": "2026-06-18T02:15:30.502Z",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "action": "create_job",
+      "jobId": "INQ20260602001",
+      "detail": "สร้างงานใหม่ สถานะ รอถอดแบบ"
+    },
+    {
+      "id": "372ef5bb-6e07-4c36-a743-e3fd037ced6e",
+      "at": "2026-06-18T01:59:40.557Z",
+      "userId": "sales-pamon",
+      "userName": "คุณ ภมร",
+      "role": "sales",
+      "action": "delete_job",
+      "jobId": "INQ20260602003",
+      "detail": "ลบจากรายการที่เลือก"
+    },
+    {
+      "id": "faca8f2c-6f34-407c-a796-638452f13699",
+      "at": "2026-06-18T01:59:40.557Z",
+      "userId": "sales-pamon",
+      "userName": "คุณ ภมร",
+      "role": "sales",
+      "action": "delete_job",
+      "jobId": "INQ20260602002",
+      "detail": "ลบจากรายการที่เลือก"
+    },
+    {
+      "id": "9bdff02b-c64f-4a04-bb9b-33aafba2d156",
+      "at": "2026-06-18T01:59:40.557Z",
+      "userId": "sales-pamon",
+      "userName": "คุณ ภมร",
+      "role": "sales",
+      "action": "delete_job",
+      "jobId": "INQ20260602001",
+      "detail": "ลบจากรายการที่เลือก"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "INQ20260602002",
+      "createdAt": "2026-06-18T08:44:13.036Z",
+      "customer": "Test Checked Stock",
+      "item": "Duct",
+      "quantity": 10,
+      "lineItems": [
+        {
+          "name": "Duct",
+          "quantity": 10
+        }
+      ],
+      "customerRef": "Line",
+      "salesOwner": "คุณ ธนา",
+      "files": [
+        {
+          "name": "18032026.jpg",
+          "storedName": "1781772253030-226bc2b3-18032026.jpg",
+          "size": 56371,
+          "type": "image/jpeg",
+          "url": "/uploads/1781772253030-226bc2b3-18032026.jpg"
+        }
+      ],
+      "status": "WAITING_STOCK",
+      "dueDate": "2026-06-22",
+      "deliveryMode": "บริษัทจัดส่ง",
+      "quoteNo": "",
+      "soNo": "",
+      "woNo": "",
+      "note": "",
+      "reads": [
+        {
+          "at": "2026-06-18T08:50:16.229Z",
+          "userId": "wh-pon",
+          "userName": "คุณ พล",
+          "role": "warehouse",
+          "status": "WAITING_STOCK"
+        },
+        {
+          "at": "2026-06-18T08:48:46.928Z",
+          "userId": "wh-pon",
+          "userName": "คุณ พล",
+          "role": "warehouse",
+          "status": "WAITING_STOCK"
+        },
+        {
+          "at": "2026-06-18T08:47:51.184Z",
+          "userId": "wh-pon",
+          "userName": "คุณ พล",
+          "role": "warehouse",
+          "status": "WAITING_STOCK"
+        }
+      ],
+      "replies": []
+    },
+    {
+      "id": "INQ20260602001",
+      "createdAt": "2026-06-18T02:15:30.501Z",
+      "customer": "A",
+      "item": "Air Duct 1, Panel Board, Air Duct 2",
+      "quantity": 3,
+      "lineItems": [
+        {
+          "name": "Air Duct 1",
+          "quantity": 1
+        },
+        {
+          "name": "Panel Board",
+          "quantity": 1
+        },
+        {
+          "name": "Air Duct 2",
+          "quantity": 1
+        }
+      ],
+      "customerRef": "Line",
+      "salesOwner": "คุณ ธนา",
+      "files": [
+        {
+          "name": "132604.jpg",
+          "storedName": "1781748930496-41f22ce4-132604.jpg",
+          "size": 77351,
+          "type": "image/jpeg",
+          "url": "/uploads/1781748930496-41f22ce4-132604.jpg"
+        }
+      ],
+      "status": "WAITING_DELIVERY_CONFIRM",
+      "dueDate": "2026-07-01",
+      "deliveryMode": "บริษัทจัดส่ง",
+      "quoteNo": "",
+      "soNo": "SO20260602001",
+      "woNo": "WO20260602001",
+      "note": "Competitive Price",
+      "reads": [
+        {
+          "at": "2026-06-18T08:21:31.477Z",
+          "userId": "sales-thana",
+          "userName": "คุณ ธนา",
+          "role": "sales",
+          "status": "DESIGN_REPLY"
+        },
+        {
+          "at": "2026-06-18T08:21:19.769Z",
+          "userId": "sales-thana",
+          "userName": "คุณ ธนา",
+          "role": "sales",
+          "status": "DESIGN_REPLY"
+        },
+        {
+          "at": "2026-06-18T02:20:57.560Z",
+          "userId": "sales-thana",
+          "userName": "คุณ ธนา",
+          "role": "sales",
+          "status": "DESIGN_REPLY"
+        },
+        {
+          "at": "2026-06-18T02:20:47.325Z",
+          "userId": "sales-thana",
+          "userName": "คุณ ธนา",
+          "role": "sales",
+          "status": "DESIGN_REPLY"
+        },
+        {
+          "at": "2026-06-18T02:18:49.692Z",
+          "userId": "sales-thana",
+          "userName": "คุณ ธนา",
+          "role": "sales",
+          "status": "DESIGN_REPLY"
+        },
+        {
+          "at": "2026-06-18T02:18:19.754Z",
+          "userId": "sales-thana",
+          "userName": "คุณ ธนา",
+          "role": "sales",
+          "status": "DESIGN_REPLY"
+        },
+        {
+          "at": "2026-06-18T02:17:26.370Z",
+          "userId": "sales-thana",
+          "userName": "คุณ ธนา",
+          "role": "sales",
+          "status": "DESIGN_REPLY"
+        }
+      ],
+      "designReply": {
+        "message": "",
+        "files": [
+          {
+            "name": "กระบวนการทำงานกระดาษปัจจุบัน เปลี่ยนไปใช้ไลน์ ลดกระดาษ ตั้งแต่ใบเสนอราคา ใบสั่งซื้อ ใบแจ้งผลิต.docx",
+            "storedName": "1781749020981-e5352243-กระบวนการทำงานกระดาษปัจจุบัน เปลี่ยนไปใช้ไลน์ ลดกระดาษ ตั้งแต่ใบเสนอราคา ใบสั่งซื้อ ใบแจ้งผลิต.docx",
+            "size": 13628,
+            "type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "url": "/uploads/1781749020981-e5352243-%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%9A%E0%B8%A7%E0%B8%99%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%97%E0%B8%B3%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B2%E0%B8%A9%E0%B8%9B%E0%B8%B1%E0%B8%88%E0%B8%88%E0%B8%B8%E0%B8%9A%E0%B8%B1%E0%B8%99%20%E0%B9%80%E0%B8%9B%E0%B8%A5%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%99%E0%B9%84%E0%B8%9B%E0%B9%83%E0%B8%8A%E0%B9%89%E0%B9%84%E0%B8%A5%E0%B8%99%E0%B9%8C%20%E0%B8%A5%E0%B8%94%E0%B8%81%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B2%E0%B8%A9%20%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%81%E0%B8%95%E0%B9%88%E0%B9%83%E0%B8%9A%E0%B9%80%E0%B8%AA%E0%B8%99%E0%B8%AD%E0%B8%A3%E0%B8%B2%E0%B8%84%E0%B8%B2%20%E0%B9%83%E0%B8%9A%E0%B8%AA%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B8%8B%E0%B8%B7%E0%B9%89%E0%B8%AD%20%E0%B9%83%E0%B8%9A%E0%B9%81%E0%B8%88%E0%B9%89%E0%B8%87%E0%B8%9C%E0%B8%A5%E0%B8%B4%E0%B8%95.docx"
+          }
+        ],
+        "repliedAt": "2026-06-18T02:17:00.986Z"
+      },
+      "replies": []
+    }
+  ],
+  "notifications": [
+    "LINE -> ถอดแบบ/ผลิต คุณ แป๊ะ: มีงานใหม่ INQ20260602001 รอถอดแบบ",
+    "LINE -> คลัง คุณ พล: มีคำขอเช็คสต็อก INQ20260602002",
+    "LINE -> ขนส่ง คุณ เรณู: SO20260602001 ต้องจองรถก่อน 10:00",
+    "LINE -> Admin: ลบงานที่เลือก 3 รายการ",
+    "LINE -> ถอดแบบ/ผลิต - คุณ แป๊ะ, คุณ โรง, คุณ เปรมสุข: มีงานใหม่ INQ20260602001 จาก A",
+    "LINE -> ฝ่ายขาย - คุณ ธนา: INQ20260602001 ฝ่ายผลิตถอดแบบเสร็จแล้ว กรุณาออก SO / Sales Order. แนบไฟล์ กระบวนการทำงานกระดาษปัจจุบัน เปลี่ยนไปใช้ไลน์ ลดกระดาษ ตั้งแต่ใบเสนอราคา ใบสั่งซื้อ ใบแจ้งผลิต.docx",
+    "LINE -> วางแผน - คุณ แพ็ด: INQ20260602001 เปลี่ยนสถานะเป็น รอวางแผนผลิต",
+    "LINE -> ผลิต - คุณ แป๊ะ, คุณ โรง, คุณ เปรมสุข: INQ20260602001 เปลี่ยนสถานะเป็น กำลังผลิต",
+    "LINE -> คุณ ธนา/Admin: WO20260602001 ผลิตเสร็จ ดี 100 เสีย 0",
+    "LINE -> ฝ่ายขาย - คุณ ธนา: INQ20260602001 เปลี่ยนสถานะเป็น รอยืนยันจัดส่ง",
+    "LINE -> คลัง - คุณ พล: มีงานใหม่ INQ20260602002 จาก Test Checked Stock",
+    "LINE -> รับข้อความจาก U6b2cca55de9770d8b9f145fc6f11f5f4: เทส"
+  ],
+  "sessions": [
+    {
+      "token": "490258672c7f8fadf4787564e6549fc8d41163c0b8bc743021f381ac39b344bf",
+      "source": "browser",
+      "userId": "sales-pamon",
+      "userName": "คุณ ภมร",
+      "role": "sales",
+      "lineUserId": "",
+      "lineDisplayName": "",
+      "startedAt": "2026-07-01T08:06:12.814Z"
+    },
+    {
+      "token": "7504df7254c1847f2be10e1bfa68344d2d816f22bcb91cd987960f073a78abac",
+      "source": "browser",
+      "userId": "wh-pon",
+      "userName": "คุณ พล",
+      "role": "warehouse",
+      "lineUserId": "",
+      "lineDisplayName": "",
+      "startedAt": "2026-06-18T08:46:42.821Z"
+    },
+    {
+      "token": "5c29083dc77be284602a87fb76ab28c5b42108b99fb200e80c6bf624d8ca305b",
+      "source": "browser",
+      "userId": "sales-thana",
+      "userName": "คุณ ธนา",
+      "role": "sales",
+      "lineUserId": "",
+      "lineDisplayName": "",
+      "startedAt": "2026-06-18T08:20:26.013Z"
+    },
+    {
+      "token": "daa9e1ffaf17c29928866ce7b844271b3981649840993faeb6d54c96bfa930b8",
+      "source": "browser",
+      "userId": "prod-pae",
+      "userName": "คุณ แป๊ะ",
+      "role": "production",
+      "lineUserId": "",
+      "lineDisplayName": "",
+      "startedAt": "2026-06-18T08:18:16.202Z",
+      "endedAt": "2026-06-18T08:46:34.928Z"
+    },
+    {
+      "token": "a6903d6295280caa73f39c8279360baa87df8fb44bc538124f7ee4003efecc5c",
+      "source": "browser",
+      "userId": "plan-pad",
+      "userName": "คุณ แพ็ด",
+      "role": "planning",
+      "lineUserId": "",
+      "lineDisplayName": "",
+      "startedAt": "2026-06-18T08:17:52.596Z",
+      "endedAt": "2026-06-18T08:18:11.519Z"
+    },
+    {
+      "token": "466da97391df8ff7411688a39e63b5d22a869b8099a9188de1dd68a14c2362d6",
+      "source": "browser",
+      "userId": "plan-pad",
+      "userName": "คุณ แพ็ด",
+      "role": "planning",
+      "lineUserId": "",
+      "lineDisplayName": "",
+      "startedAt": "2026-06-18T08:17:35.982Z",
+      "endedAt": "2026-06-18T08:17:50.715Z"
+    },
+    {
+      "token": "12b90ad9227b1e5d7cdd732656d99021b4790680dcca6b287f4d15be587cf52d",
+      "source": "browser",
+      "userId": "sales-pamon",
+      "userName": "คุณ ภมร",
+      "role": "sales",
+      "lineUserId": "",
+      "lineDisplayName": "",
+      "startedAt": "2026-06-18T08:03:56.448Z"
+    }
+  ],
+  "lineEvents": [
+    {
+      "id": "ca765848-c781-4948-a3ec-99e2b5e34e00",
+      "at": "2026-07-01T08:33:51.290Z",
+      "eventId": "01KWED09185YJ3QF8GCHP1D9N9",
+      "type": "message",
+      "mode": "active",
+      "sourceType": "user",
+      "lineUserId": "U6b2cca55de9770d8b9f145fc6f11f5f4",
+      "lineGroupId": "",
+      "lineRoomId": "",
+      "userId": "",
+      "userName": "",
+      "role": "",
+      "messageType": "text",
+      "messageId": "620863571009995145",
+      "text": "เทส",
+      "fileName": "",
+      "duration": 0,
+      "summary": "เทส"
+    }
+  ],
+  "lineWebhookDiagnostics": [
+    {
+      "id": "f0df0d2e-d7d9-4d2c-a968-be510cd6e778",
+      "at": "2026-07-01T08:33:51.290Z",
+      "status": 200,
+      "signaturePresent": true,
+      "signatureOk": true,
+      "bodyBytes": 800,
+      "eventCount": 1,
+      "eventTypes": [
+        "message"
+      ],
+      "sourceUserIds": [
+        "U6b2cca55de9770d8b9f145fc6f11f5f4"
+      ],
+      "messageTypes": [
+        "text"
+      ]
+    },
+    {
+      "id": "97c2e2ad-317b-420f-bf05-0b0126800ed3",
+      "at": "2026-07-01T08:28:39.818Z",
+      "status": 200,
+      "signaturePresent": true,
+      "signatureOk": true,
+      "bodyBytes": 63,
+      "eventCount": 0,
+      "eventTypes": [],
+      "sourceUserIds": [],
+      "messageTypes": []
+    }
+  ]
+}
