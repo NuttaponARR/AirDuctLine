@@ -160,6 +160,16 @@
   ],
   "activityLog": [
     {
+      "id": "998aac2c-e828-4a76-b1be-28e5c169bbed",
+      "at": "2026-07-01T08:58:16.865Z",
+      "userId": "",
+      "userName": "ไม่ระบุ",
+      "role": "",
+      "action": "line_webhook",
+      "jobId": "",
+      "detail": "เพิ่ม LINE Official เป็นเพื่อน"
+    },
+    {
       "id": "6a3fc066-7fcc-4b50-b03f-b6b429d584d4",
       "at": "2026-07-01T08:33:51.290Z",
       "userId": "",
@@ -763,7 +773,8 @@
     "LINE -> คุณ ธนา/Admin: WO20260602001 ผลิตเสร็จ ดี 100 เสีย 0",
     "LINE -> ฝ่ายขาย - คุณ ธนา: INQ20260602001 เปลี่ยนสถานะเป็น รอยืนยันจัดส่ง",
     "LINE -> คลัง - คุณ พล: มีงานใหม่ INQ20260602002 จาก Test Checked Stock",
-    "LINE -> รับข้อความจาก U6b2cca55de9770d8b9f145fc6f11f5f4: เทส"
+    "LINE -> รับข้อความจาก U6b2cca55de9770d8b9f145fc6f11f5f4: เทส",
+    "LINE -> รับข้อความจาก Utestuser: เพิ่ม LINE Official เป็นเพื่อน"
   ],
   "sessions": [
     {
@@ -842,6 +853,26 @@
   ],
   "lineEvents": [
     {
+      "id": "d612abb7-f244-49dc-b210-25380e0a21f9",
+      "at": "2026-07-01T08:58:16.865Z",
+      "eventId": "test-1",
+      "type": "follow",
+      "mode": "active",
+      "sourceType": "user",
+      "lineUserId": "Utestuser",
+      "lineGroupId": "",
+      "lineRoomId": "",
+      "userId": "",
+      "userName": "",
+      "role": "",
+      "messageType": "",
+      "messageId": "",
+      "text": "",
+      "fileName": "",
+      "duration": 0,
+      "summary": "เพิ่ม LINE Official เป็นเพื่อน"
+    },
+    {
       "id": "ca765848-c781-4948-a3ec-99e2b5e34e00",
       "at": "2026-07-01T08:33:51.290Z",
       "eventId": "01KWED09185YJ3QF8GCHP1D9N9",
@@ -863,6 +894,22 @@
     }
   ],
   "lineWebhookDiagnostics": [
+    {
+      "id": "dec52810-f121-4d0a-90f4-bc6a504a6f65",
+      "at": "2026-07-01T08:58:17.378Z",
+      "status": 200,
+      "signaturePresent": true,
+      "signatureOk": true,
+      "bodyBytes": 175,
+      "eventCount": 1,
+      "eventTypes": [
+        "follow"
+      ],
+      "sourceUserIds": [
+        "Utestuser"
+      ],
+      "messageTypes": []
+    },
     {
       "id": "f0df0d2e-d7d9-4d2c-a968-be510cd6e778",
       "at": "2026-07-01T08:33:51.290Z",
