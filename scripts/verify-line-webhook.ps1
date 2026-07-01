@@ -95,6 +95,14 @@ try {
     throw "Webhook did not accept signed LINE event"
   }
 
+  $diagnostics = Invoke-RestMethod -Method Get -Uri "http://127.0.0.1:$Port/api/line/webhook/diagnostics"
+  if (-not $diagnostics.ok -or $diagnostics.items.Count -lt 1) {
+    throw "Webhook diagnostics did not record the accepted request"
+  }
+  if ($diagnostics.items[0].status -ne 200 -or -not $diagnostics.items[0].signatureOk -or $diagnostics.items[0].eventCount -ne 1) {
+    throw "Webhook diagnostics did not summarize the accepted request correctly"
+  }
+
   $badSignature = New-LineSignature -Body $body -Secret "wrong-secret"
   try {
     Invoke-Json -Method Post -Uri "http://127.0.0.1:$Port/api/line/webhook" -Headers @{ "X-Line-Signature" = $badSignature } -Body $body | Out-Null
@@ -104,6 +112,11 @@ try {
     if ($status -ne 401) {
       throw "Invalid signature returned unexpected status: $status"
     }
+  }
+
+  $diagnostics = Invoke-RestMethod -Method Get -Uri "http://127.0.0.1:$Port/api/line/webhook/diagnostics"
+  if ($diagnostics.items[0].status -ne 401 -or $diagnostics.items[0].signatureOk) {
+    throw "Webhook diagnostics did not record the rejected signature"
   }
 
   "line webhook verification passed"

@@ -13,6 +13,8 @@ const uploadDir = path.join(root, "uploads");
 const dbFile = path.join(dataDir, "state.json");
 const liffId = process.env.LIFF_ID || "";
 const lineAppUrl = process.env.LINE_APP_URL || "";
+const lineChannelSecret = process.env.LINE_CHANNEL_SECRET || process.env.CHANNEL_SECRET || "";
+const lineChannelAccessToken = process.env.LINE_CHANNEL_ACCESS_TOKEN || process.env.CHANNEL_ACCESS_TOKEN || "";
 
 const today = new Date("2026-06-02T09:00:00+07:00");
 
@@ -190,6 +192,11 @@ function error(res, status, message) {
   json(res, status, { error: message });
 }
 
+function safeLiffId() {
+  const value = String(liffId || "").trim();
+  return liffIdPlaceholders.has(value) ? "" : value;
+}
+
 function requireSales(req, res, state) {
   const user = sessionToken(req) ? currentUser(req, state) : null;
   if (user?.role === "sales" || user?.role === "admin") return user;
@@ -212,6 +219,7 @@ function normalizeState(state) {
   state.activityLog = Array.isArray(state.activityLog) ? state.activityLog : [];
   state.notifications = Array.isArray(state.notifications) ? state.notifications : [];
   state.lineEvents = Array.isArray(state.lineEvents) ? state.lineEvents : [];
+  state.lineWebhookDiagnostics = Array.isArray(state.lineWebhookDiagnostics) ? state.lineWebhookDiagnostics : [];
   state.jobs = Array.isArray(state.jobs) ? state.jobs : [];
   state.counters = state.counters || {};
   state.jobs.forEach((job) => {
@@ -724,14 +732,60 @@ async function lineWebhookHealth(req, res) {
   });
 }
 
+async function recordLineWebhookDiagnostic(fields) {
+  const state = await readState();
+  state.lineWebhookDiagnostics.unshift({
+    id: crypto.randomUUID(),
+    at: new Date().toISOString(),
+    ...fields,
+  });
+  state.lineWebhookDiagnostics = state.lineWebhookDiagnostics.slice(0, 200);
+  await writeState(state);
+  return state;
+}
+
+function lineWebhookDiagnosticFromPayload(payload, fields) {
+  const events = Array.isArray(payload?.events) ? payload.events : [];
+  return {
+    eventCount: events.length,
+    eventTypes: [...new Set(events.map((event) => event.type || "").filter(Boolean))],
+    sourceUserIds: [...new Set(events.map((event) => event.source?.userId || "").filter(Boolean))].slice(0, 20),
+    messageTypes: [...new Set(events.map((event) => event.message?.type || "").filter(Boolean))],
+    ...fields,
+  };
+}
+
+async function lineWebhookDiagnostics(req, res) {
+  const state = await readState();
+  return json(res, 200, {
+    ok: true,
+    items: state.lineWebhookDiagnostics.slice(0, 50),
+  });
+}
+
 async function lineWebhook(req, res) {
   if (!lineChannelSecret) {
+    await recordLineWebhookDiagnostic({
+      status: 503,
+      signaturePresent: Boolean(req.headers["x-line-signature"]),
+      signatureOk: false,
+      eventCount: 0,
+      error: "LINE_CHANNEL_SECRET is not configured",
+    });
     return error(res, 503, "LINE_CHANNEL_SECRET is not configured");
   }
 
   const rawBody = await collectBody(req, 2 * 1024 * 1024);
   const signature = req.headers["x-line-signature"] || "";
   if (!verifyLineSignature(rawBody, signature)) {
+    await recordLineWebhookDiagnostic({
+      status: 401,
+      signaturePresent: Boolean(signature),
+      signatureOk: false,
+      bodyBytes: rawBody.length,
+      eventCount: 0,
+      error: "Invalid LINE signature",
+    });
     return error(res, 401, "Invalid LINE signature");
   }
 
@@ -739,6 +793,14 @@ async function lineWebhook(req, res) {
   try {
     payload = rawBody.length ? JSON.parse(rawBody.toString("utf8")) : {};
   } catch {
+    await recordLineWebhookDiagnostic({
+      status: 400,
+      signaturePresent: Boolean(signature),
+      signatureOk: true,
+      bodyBytes: rawBody.length,
+      eventCount: 0,
+      error: "Invalid LINE webhook JSON",
+    });
     return error(res, 400, "Invalid LINE webhook JSON");
   }
 
@@ -759,6 +821,16 @@ async function lineWebhook(req, res) {
 
   state.lineEvents = state.lineEvents.slice(0, 500);
   state.notifications = state.notifications.slice(-500);
+  state.lineWebhookDiagnostics.unshift({
+    id: crypto.randomUUID(),
+    at: new Date().toISOString(),
+    status: 200,
+    signaturePresent: Boolean(signature),
+    signatureOk: true,
+    bodyBytes: rawBody.length,
+    ...lineWebhookDiagnosticFromPayload(payload),
+  });
+  state.lineWebhookDiagnostics = state.lineWebhookDiagnostics.slice(0, 200);
   await writeState(state);
   json(res, 200, { ok: true, received: savedEvents.length });
 }
@@ -1043,7 +1115,7 @@ async function handleApi(req, res, pathname) {
   }
   if (req.method === "GET" && pathname === "/api/line/config") {
     return json(res, 200, {
-      liffId,
+      liffId: safeLiffId(),
       appUrl: lineAppUrl,
       pilotUrl: lineAppUrl ? `${lineAppUrl.replace(/\/$/, "")}/line.html` : "/line.html",
       webhookUrl: lineAppUrl ? `${lineAppUrl.replace(/\/$/, "")}/api/line/webhook` : "/api/line/webhook",
@@ -1051,6 +1123,7 @@ async function handleApi(req, res, pathname) {
     });
   }
   if (req.method === "GET" && pathname === "/api/line/webhook/health") return lineWebhookHealth(req, res);
+  if (req.method === "GET" && pathname === "/api/line/webhook/diagnostics") return lineWebhookDiagnostics(req, res);
   if (req.method === "POST" && pathname === "/api/line/webhook") return lineWebhook(req, res);
   if (req.method === "POST" && pathname === "/api/login") return login(req, res);
   if (req.method === "POST" && pathname === "/api/line/session") return lineSession(req, res);
