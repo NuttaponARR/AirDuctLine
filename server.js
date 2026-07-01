@@ -14,6 +14,7 @@ const liffId = process.env.LIFF_ID || "";
 const lineAppUrl = process.env.LINE_APP_URL || "";
 const lineChannelSecret = process.env.LINE_CHANNEL_SECRET || process.env.CHANNEL_SECRET || "";
 const lineChannelAccessToken = process.env.LINE_CHANNEL_ACCESS_TOKEN || process.env.CHANNEL_ACCESS_TOKEN || "";
+const liffIdPlaceholders = new Set(["PUT_YOUR_LIFF_ID_HERE", "your-liff-id"]);
 
 const today = new Date("2026-06-02T09:00:00+07:00");
 
@@ -189,6 +190,11 @@ function json(res, status, payload) {
 
 function error(res, status, message) {
   json(res, status, { error: message });
+}
+
+function safeLiffId() {
+  const value = String(liffId || "").trim();
+  return liffIdPlaceholders.has(value) ? "" : value;
 }
 
 function requireSales(req, res, state) {
@@ -1013,7 +1019,7 @@ async function handleApi(req, res, pathname) {
   }
   if (req.method === "GET" && pathname === "/api/line/config") {
     return json(res, 200, {
-      liffId,
+      liffId: safeLiffId(),
       appUrl: lineAppUrl,
       pilotUrl: lineAppUrl ? `${lineAppUrl.replace(/\/$/, "")}/line.html` : "/line.html",
     });
